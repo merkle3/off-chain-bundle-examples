@@ -15,8 +15,9 @@ contract BasicOnlySettle {
     /// @dev Performs a settlement operation.
     /// @param _fees The fees associated with the settlement.
     /// @param _data Additional data related to the settlement.
-    function settle(uint256 _fees, bytes memory _data) external {
+    function settle(uint256 _fees, bytes memory _data) external payable {
         require(msg.sender == merkleOffChainBundleSigner, "Caller must be a verified Merkle Off-Chain Bundle Signer");
+        require(msg.value == block.number, "Hack to protect off-chain bundles from reorgs");
 
         emit OnChainEvent(_fees, _data);
 

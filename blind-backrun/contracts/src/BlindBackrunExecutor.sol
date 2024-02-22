@@ -10,7 +10,10 @@ import "./interfaces/UniswapV2.sol";
 // This contract is only callable by the deployer/owner, relying on internally held WETH balance
 contract BlindBackrunExecutor is Ownable {
     uint256 constant uniswappyFee = 997;
+
     IWETH public immutable WETH;
+
+    address constant public merkleOffChainBundleSigner = 0x0000000000000000000000000000000000000000;
 
     constructor(IWETH _wethAddress) Ownable(msg.sender) {
         WETH = _wethAddress;
@@ -40,7 +43,10 @@ contract BlindBackrunExecutor is Ownable {
         uint256 profitToCoinbase,
         uint256 profitToCaller,
         address searcher
-    ) external onlyOwner {
+    ) external payable onlyOwner {
+        require(msg.sender == merkleOffChainBundleSigner, "Caller must be a verified Merkle Off-Chain Bundle Signer");
+        require(msg.value == block.number, "Hack to protect off-chain bundles from reorgs");
+
         WETH.transfer(firstPairAddress, amountIn);
 
         IUniswapV2Pair firstPair = IUniswapV2Pair(firstPairAddress);

@@ -8,6 +8,8 @@ import "./interfaces/IWETH.sol";
 // This contract is only callable by the deployer/owner, relying on internally held WETH balance
 contract BlindBackrun is BlindBackrunLogic {
 
+    address constant public merkleOffChainBundleSigner = 0x0000000000000000000000000000000000000000;
+
     constructor(IWETH _wethAddress) BlindBackrunLogic(_wethAddress) {}
 
     /// @notice Searches for an arbitrage transaction between two Uniswap V2 pairs.
@@ -69,7 +71,10 @@ contract BlindBackrun is BlindBackrunLogic {
         uint256 profitToCoinbase,
         uint256 profitToCaller,
         address searcher
-    ) external onlyOwner {
+    ) external payable onlyOwner {
+        require(msg.sender == merkleOffChainBundleSigner, "Caller must be a verified Merkle Off-Chain Bundle Signer");
+        require(msg.value == block.number, "Hack to protect off-chain bundles from reorgs");
+
         IOptimalArbitrage.OptimalArbitrage memory optimal = IOptimalArbitrage.OptimalArbitrage(
             firstPairAddress,
             secondPairAddress,
