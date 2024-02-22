@@ -1,7 +1,0 @@
-[workspace]
-members = [
-    "crates/bindings",
-]
-
-[workspace.dependencies]
-bindings = { path = "crates/bindings" }
