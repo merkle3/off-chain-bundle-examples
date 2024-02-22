@@ -1,0 +1,20 @@
+[package]
+name = "app"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+ethers = { version = "2", default-features = false, features = ["ws", "rustls"] }
+
+[dependencies]
+bindings = { workspace = true } 
+ethers = { version = "2", default-features = false, features = ["rustls"] }
+ethers-flashbots = "0.15.0"
+eyre = "0.6"
+tokio = { version = "1.19", features = ["macros", "rt-multi-thread"] }
+url = "2.5.0"
+serde = "1"
+serde_json = "1"
+uuid = "1.7.0"
