@@ -6358,20 +6358,6 @@ pub mod vm {
                     ],
                 ),
                 (
-                    ::std::borrow::ToOwned::to_owned("stopExpectSafeMemory"),
-                    ::std::vec![
-                        ::ethers::core::abi::ethabi::Function {
-                            name: ::std::borrow::ToOwned::to_owned(
-                                "stopExpectSafeMemory",
-                            ),
-                            inputs: ::std::vec![],
-                            outputs: ::std::vec![],
-                            constant: ::core::option::Option::None,
-                            state_mutability: ::ethers::core::abi::ethabi::StateMutability::NonPayable,
-                        },
-                    ],
-                ),
-                (
                     ::std::borrow::ToOwned::to_owned("stopMappingRecording"),
                     ::std::vec![
                         ::ethers::core::abi::ethabi::Function {
@@ -9118,14 +9104,6 @@ pub mod vm {
         ) -> ::ethers::contract::builders::ContractCall<M, ()> {
             self.0
                 .method_hash([118, 234, 221, 54], ())
-                .expect("method not found (this should never happen)")
-        }
-        ///Calls the contract's `stopExpectSafeMemory` (0x0956441b) function
-        pub fn stop_expect_safe_memory(
-            &self,
-        ) -> ::ethers::contract::builders::ContractCall<M, ()> {
-            self.0
-                .method_hash([9, 86, 68, 27], ())
                 .expect("method not found (this should never happen)")
         }
         ///Calls the contract's `stopMappingRecording` (0x0d4aae9b) function
@@ -12587,19 +12565,6 @@ pub mod vm {
     )]
     #[ethcall(name = "stopBroadcast", abi = "stopBroadcast()")]
     pub struct StopBroadcastCall;
-    ///Container type for all input parameters for the `stopExpectSafeMemory` function with signature `stopExpectSafeMemory()` and selector `0x0956441b`
-    #[derive(
-        Clone,
-        ::ethers::contract::EthCall,
-        ::ethers::contract::EthDisplay,
-        Default,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash
-    )]
-    #[ethcall(name = "stopExpectSafeMemory", abi = "stopExpectSafeMemory()")]
-    pub struct StopExpectSafeMemoryCall;
     ///Container type for all input parameters for the `stopMappingRecording` function with signature `stopMappingRecording()` and selector `0x0d4aae9b`
     #[derive(
         Clone,
@@ -13190,7 +13155,6 @@ pub mod vm {
         StartStateDiffRecording(StartStateDiffRecordingCall),
         StopAndReturnStateDiff(StopAndReturnStateDiffCall),
         StopBroadcast(StopBroadcastCall),
-        StopExpectSafeMemory(StopExpectSafeMemoryCall),
         StopMappingRecording(StopMappingRecordingCall),
         StopPrank(StopPrankCall),
         Store(StoreCall),
@@ -14249,11 +14213,6 @@ pub mod vm {
             ) {
                 return Ok(Self::StopBroadcast(decoded));
             }
-            if let Ok(decoded) = <StopExpectSafeMemoryCall as ::ethers::core::abi::AbiDecode>::decode(
-                data,
-            ) {
-                return Ok(Self::StopExpectSafeMemory(decoded));
-            }
             if let Ok(decoded) = <StopMappingRecordingCall as ::ethers::core::abi::AbiDecode>::decode(
                 data,
             ) {
@@ -14912,9 +14871,6 @@ pub mod vm {
                 Self::StopBroadcast(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
-                Self::StopExpectSafeMemory(element) => {
-                    ::ethers::core::abi::AbiEncode::encode(element)
-                }
                 Self::StopMappingRecording(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
@@ -15271,9 +15227,6 @@ pub mod vm {
                     ::core::fmt::Display::fmt(element, f)
                 }
                 Self::StopBroadcast(element) => ::core::fmt::Display::fmt(element, f),
-                Self::StopExpectSafeMemory(element) => {
-                    ::core::fmt::Display::fmt(element, f)
-                }
                 Self::StopMappingRecording(element) => {
                     ::core::fmt::Display::fmt(element, f)
                 }
@@ -16339,11 +16292,6 @@ pub mod vm {
     impl ::core::convert::From<StopBroadcastCall> for VmCalls {
         fn from(value: StopBroadcastCall) -> Self {
             Self::StopBroadcast(value)
-        }
-    }
-    impl ::core::convert::From<StopExpectSafeMemoryCall> for VmCalls {
-        fn from(value: StopExpectSafeMemoryCall) -> Self {
-            Self::StopExpectSafeMemory(value)
         }
     }
     impl ::core::convert::From<StopMappingRecordingCall> for VmCalls {
